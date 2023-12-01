@@ -9,7 +9,7 @@
 	--transition-time: 0.25s;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
 	--primary-color: #232d3f;
 	--secondary-color: #0f0f0f;
 	--credits-color: #b9b4c7;

@@ -1,17 +1,17 @@
 <script>
-	import { browser } from "$app/environment";
-	import Toggle from "./Toggle.svelte";
+	import { browser } from '$app/environment';
+	import Toggle from './Toggle.svelte';
 
 	let isDarkMode =
-		browser && localStorage.getItem("theme") ? localStorage.getItem("theme") === "dark" : false;
+		browser && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : false;
 
 	$: if (browser) {
 		if (isDarkMode) {
-			document.documentElement.setAttribute("data-theme", "dark");
-			localStorage.setItem("theme", "dark");
+			document.documentElement.setAttribute('data-theme', 'dark');
+			localStorage.setItem('theme', 'dark');
 		} else {
-			document.documentElement.setAttribute("data-theme", "light");
-			localStorage.setItem("theme", "light");
+			document.documentElement.setAttribute('data-theme', 'light');
+			localStorage.setItem('theme', 'light');
 		}
 	}
 </script>
