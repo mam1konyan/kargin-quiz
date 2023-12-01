@@ -1,0 +1,22 @@
+@font-face {
+	font-family: "Yerevanyan";
+	src: url("http://api.mamikonyan.io/fonts/Yerevanyan/Yerevanyan-Regular.woff") format("woff");
+	font-weight: 400;
+}
+@font-face {
+	font-family: "Yerevanyan";
+	src: url("http://api.mamikonyan.io/fonts/Yerevanyan/Yerevanyan-Italic.woff") format("woff");
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: "Yerevanyan";
+	src: url("http://api.mamikonyan.io/fonts/Yerevanyan/Yerevanyan-Bold.woff") format("woff");
+	font-weight: 700;
+}
+@font-face {
+	font-family: "Yerevanyan";
+	src: url("http://api.mamikonyan.io/fonts/Yerevanyan/Yerevanyan-Bold_Italic.woff") format("woff");
+	font-weight: 700;
+	font-style: italic;
+}

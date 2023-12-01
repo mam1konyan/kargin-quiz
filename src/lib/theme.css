@@ -1,0 +1,20 @@
+:root {
+	--primary-color: #faf0e6;
+	--secondary-color: #b9b4c7;
+	--font-color: #232d3f;
+	--credits-color: #0f0f0f;
+	--toggle-bg: hsl(48, 90%, 85%);
+	--toggle-dot: hsl(48, 90%, 55%);
+	--toggle-transform: translateX(0px);
+	--transition-time: 0.25s;
+}
+
+[data-theme="dark"] {
+	--primary-color: #232d3f;
+	--secondary-color: #0f0f0f;
+	--credits-color: #b9b4c7;
+	--font-color: #faf0e6;
+	--toggle-bg: hsl(198, 90%, 15%);
+	--toggle-dot: hsl(198, 90%, 55%);
+	--toggle-transform: translateX(26px);
+}
