@@ -1,7 +1,7 @@
 <div class="wrapper">
 	<div class="credits">
 		Created with ❤️ by
-		<a class="credits" href="https://mamikonyan.io/" target="_blank">Paruyr Mamikonyan</a>
+		<a class="author" href="https://mamikonyan.io/" target="_blank">Paruyr Mamikonyan</a>
 	</div>
 </div>
 
@@ -13,12 +13,14 @@
 		padding: 0 2rem;
 		display: flex;
 		align-items: center;
-		color: var(--font-color);
-	}
-
-	.credits {
+		color: var(--secondary-color);
+		font-size: 0.75rem;
 		width: fit-content;
 		margin-inline-start: auto;
-		color: var(--font-color);
+	}
+
+	.author {
+		color: var(--primary-color);
+		text-decoration: none;
 	}
 </style>

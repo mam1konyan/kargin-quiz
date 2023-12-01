@@ -20,7 +20,7 @@
 		min-height: 100vh;
 		margin: 0;
 		padding: 0;
-		background: var(--primary-color);
+		background: var(--bg-color);
 		transition: var(--transition-time);
 	}
 </style>

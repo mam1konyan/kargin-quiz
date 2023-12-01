@@ -2,8 +2,7 @@
 	import { browser } from '$app/environment';
 	import Toggle from './Toggle.svelte';
 
-	let isDarkMode =
-		browser && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : false;
+	let isDarkMode = browser ? document.documentElement.getAttribute('data-theme') === 'dark' : true;
 
 	$: if (browser) {
 		if (isDarkMode) {
@@ -28,11 +27,11 @@
 		flex-grow: 0;
 		flex-shrink: 1;
 		height: 4rem;
-		background: var(--secondary-color);
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		padding: 0 2rem;
-		color: var(--font-color);
+		color: var(--primary-color);
+		font-size: 2rem;
 	}
 </style>
