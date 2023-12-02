@@ -5,15 +5,14 @@
 	import { getLevels } from './levels.ts';
 	import type { Level, Points, Thumb } from '$lib/types';
 	import Found from './Found.svelte';
+	import Countdown from './Countdown.svelte';
 
 	let audio_tada: HTMLAudioElement;
 
 	let data = writable([]);
 
 	let difficulty: 'easy' | 'hard' = 'easy';
-	let grid: Thumb[];
-	let points: Points;
-
+	let level: Level;
 	let found: string[] = [];
 
 	onMount(async () => {
@@ -25,21 +24,21 @@
 		const [easyLevel, hardLevel] = getLevels($data);
 
 		if (difficulty === 'easy') {
-			grid = easyLevel.thumbs;
-			points = easyLevel.points;
+			level = easyLevel;
 		} else {
-			grid = hardLevel.thumbs;
-			points = hardLevel.points;
+			level = hardLevel;
 		}
 	}
 </script>
 
 <div class="game">
-	<div class="info"></div>
+	<div class="info">
+		<Countdown remaining={level.duration} duration={level.duration} />
+	</div>
 
 	<div class="grid-container">
 		<Grid
-			{grid}
+			grid={level.thumbs}
 			{found}
 			on:found={(e) => {
 				audio_tada.play();
@@ -50,7 +49,7 @@
 	</div>
 
 	<div class="info">
-		<Found {found} {points} />
+		<Found {found} points={level.points} />
 	</div>
 	<audio src="https://api.mamikonyan.io/assets/tada.mp3" bind:this={audio_tada} />
 </div>
@@ -64,7 +63,7 @@
 		width: 60vmin;
 
 		position: sticky;
-		top: 6rem;
+		top: 7rem;
 	}
 
 	.grid-container {
@@ -75,7 +74,6 @@
 	.info {
 		height: 10vmin;
 		width: 60vmin;
-		background-color: red;
 	}
 
 	@media screen and (min-width: 1024px) {

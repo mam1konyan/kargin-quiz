@@ -4,10 +4,11 @@
 	export let thumb: Thumb;
 	export let flipped: boolean;
 	export let isFound: boolean;
+	export let disabled: boolean;
 </script>
 
 <div class="card" class:flipped>
-	<button on:click />
+	<button on:click {disabled} />
 	{#if !isFound}
 		<div class="item" style="background-image: url({thumb.url})" />
 	{/if}
@@ -18,13 +19,15 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: yellow;
 	}
 
 	button {
 		position: absolute;
 		width: 100%;
 		height: 100%;
+		border: none;
+		background: none;
+		cursor: pointer;
 	}
 
 	.flipped button {
@@ -33,8 +36,10 @@
 
 	.item {
 		background-size: cover;
-		width: 80%;
-		height: 80%;
+		width: 100%;
+		height: 100%;
 		pointer-events: none;
+		border-radius: 50%;
+		cursor: pointer;
 	}
 </style>

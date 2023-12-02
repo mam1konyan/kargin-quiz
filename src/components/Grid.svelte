@@ -11,8 +11,6 @@
 	let a: number = -1;
 	let b: number = -1;
 	let timeoutId: number;
-
-	$: console.log('grid =>', grid);
 </script>
 
 <div class="grid">
@@ -43,6 +41,7 @@
 				}
 			}}
 			flipped={a === i || b === i}
+			disabled={a === i}
 			isFound={found.includes(thumb.match)}
 		/>
 	{/each}
@@ -53,7 +52,7 @@
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		grid-template-rows: repeat(4, 1fr);
-		gap: 3px;
+		gap: 1rem;
 		height: 100%;
 	}
 </style>

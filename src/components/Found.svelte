@@ -23,11 +23,10 @@
 	.count {
 		height: 100%;
 		width: 20%;
-		background: yellowgreen;
 		font-size: 4rem;
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-start;
 	}
 
 	span {
@@ -42,6 +41,5 @@
 		gap: 2px;
 		width: 80%;
 		height: 100%;
-		background: purple;
 	}
 </style>
