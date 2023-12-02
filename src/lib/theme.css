@@ -5,6 +5,7 @@
 	--credits-color: #0f0f0f;
 	--toggle-bg: #eaecef;
 	--toggle-dot: #f0b90b;
+	--logo-stroke: 2px #181a20;
 	--togle-icon-color: #eaecef;
 	--toggle-transform: translateX(0px);
 	--transition-time: 0.25s;
@@ -17,6 +18,7 @@
 	--credits-color: #b9b4c7;
 	--toggle-bg: #474d57;
 	--toggle-dot: #fafafa;
+	--logo-stroke: none;
 	--togle-icon-color: #0b0e11;
 	--toggle-transform: translateX(26px);
 	--transition-time: 0.25s;

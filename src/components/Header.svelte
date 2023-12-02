@@ -45,6 +45,7 @@
 		font-style: italic;
 		font-weight: 700;
 		font-family: Bokonique, serif;
+		-webkit-text-stroke: var(--logo-stroke);
 	}
 
 	@media only screen and (min-width: 768px) {
