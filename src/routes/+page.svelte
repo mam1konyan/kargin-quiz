@@ -1,5 +1,7 @@
 <script>
 	import '$lib';
+	import '../styles.css';
+
 	import Header from '../components/Header.svelte';
 	import Footer from '../components/Footer.svelte';
 	import Content from '../components/Content.svelte';

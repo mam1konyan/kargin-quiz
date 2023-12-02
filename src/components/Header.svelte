@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import Toggle from './Toggle.svelte';
 
-	let isDarkMode = browser ? document.documentElement.getAttribute('data-theme') === 'dark' : true;
+	let isDarkMode = browser ? document.documentElement.getAttribute('data-theme') === 'dark' : null;
 
 	$: if (browser) {
 		if (isDarkMode) {
@@ -32,6 +32,12 @@
 		justify-content: space-between;
 		padding: 0 2rem;
 		color: var(--primary-color);
-		font-size: 2rem;
+		font-size: 1rem;
+	}
+
+	@media only screen and (min-width: 720px) {
+		.wrapper {
+			font-size: 2rem;
+		}
 	}
 </style>

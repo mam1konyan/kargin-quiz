@@ -1,8 +1,6 @@
 <script>
 	import { fade } from 'svelte/transition';
 	export let checked;
-
-	console.log('checked =>', checked);
 </script>
 
 <label class="switch">
@@ -10,7 +8,9 @@
 
 	<span class="slider">
 		<svg class="bn-svg switch-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-			{#if checked}
+			{#if checked === null}
+				{null}
+			{:else if checked}
 				<path
 					in:fade={{ duration: 0.5 }}
 					d="M20.968 12.768a7 7 0 01-9.735-9.735 9 9 0 109.735 9.735z"
@@ -31,7 +31,6 @@
 
 <style>
 	.switch {
-		position: relative;
 		display: inline-block;
 		width: 60px;
 		height: 34px;
