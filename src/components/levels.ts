@@ -6,7 +6,6 @@ export const getLevels = (data: Pairs[]): Level[] => {
 	return [
 		{
 			label: 'Easy',
-			size: 4,
 			duration: 60 * 1000,
 			thumbs: getRandomThumbs(easyPairs, 4),
 			points: {
@@ -17,9 +16,8 @@ export const getLevels = (data: Pairs[]): Level[] => {
 		},
 		{
 			label: 'Hard',
-			size: 6,
 			duration: 60 * 1000,
-			thumbs: getRandomThumbs(hardPairs, 6),
+			thumbs: getRandomThumbs(hardPairs, 4),
 			points: {
 				correct: 10,
 				left: -7,

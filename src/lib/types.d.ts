@@ -16,7 +16,6 @@ export type Pairs = Pair[];
 
 export interface Level {
 	label: string;
-	size: number;
 	duration: number;
 	thumbs: Thumb[];
 	points: Points;
