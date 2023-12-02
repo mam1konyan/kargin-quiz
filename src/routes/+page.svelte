@@ -24,5 +24,6 @@
 		padding: 0;
 		background: var(--bg-color);
 		transition: var(--transition-time);
+		color: var(--secondary-color);
 	}
 </style>

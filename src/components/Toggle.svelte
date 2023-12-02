@@ -4,7 +4,7 @@
 </script>
 
 <label class="switch">
-	<input type="checkbox" bind:checked />
+	<input id="theme-mode" type="checkbox" bind:checked />
 
 	<span class="slider">
 		<svg class="bn-svg switch-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

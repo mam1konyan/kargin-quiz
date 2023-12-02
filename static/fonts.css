@@ -20,3 +20,37 @@
 	font-weight: 700;
 	font-style: italic;
 }
+
+@font-face {
+	font-family: 'Bokonique';
+	src: url('http://api.mamikonyan.io/fonts/Bokonique/Bokonique-Regular.woff') format('woff');
+	font-weight: 400;
+}
+@font-face {
+	font-family: 'Bokonique';
+	src: url('http://api.mamikonyan.io/fonts/Bokonique/Bokonique-Light.woff') format('woff');
+	font-weight: 100;
+}
+@font-face {
+	font-family: 'Bokonique';
+	src: url('http://api.mamikonyan.io/fonts/Bokonique/Bokonique-Bold.woff') format('woff');
+	font-weight: 700;
+}
+@font-face {
+	font-family: 'Bokonique';
+	src: url('http://api.mamikonyan.io/fonts/Bokonique/Bokonique-Regular_Italic.woff') format('woff');
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Bokonique';
+	src: url('http://api.mamikonyan.io/fonts/Bokonique/Bokonique-Light_Italic.woff') format('woff');
+	font-weight: 100;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Bokonique';
+	src: url('http://api.mamikonyan.io/fonts/Bokonique/Bokonique-Bold_Italic.woff') format('woff');
+	font-weight: 700;
+	font-style: italic;
+}

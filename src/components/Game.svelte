@@ -39,6 +39,9 @@
 		justify-content: center;
 		align-items: center;
 		width: 60vmin;
+
+		position: sticky;
+		top: 6rem;
 	}
 
 	.grid-container {
@@ -50,5 +53,11 @@
 		height: 10vmin;
 		width: 60vmin;
 		background-color: red;
+	}
+
+	@media screen and (min-width: 1024px) {
+		.game {
+			align-self: flex-start;
+		}
 	}
 </style>

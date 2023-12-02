@@ -16,7 +16,7 @@
 </script>
 
 <div class="wrapper">
-	<div class="label">ԿԱՐԳԻՆ ՔՈւԻԶ</div>
+	<div class="label">ԿԱՐԳԻՆՔՈւԻԶ</div>
 	<div class="toggle">
 		<Toggle bind:checked={isDarkMode} />
 	</div>
@@ -33,9 +33,21 @@
 		padding: 0 2rem;
 		color: var(--primary-color);
 		font-size: 1rem;
+		position: sticky;
+		top: 0;
+		background-color: var(--bg-color);
+		z-index: 99;
 	}
 
-	@media only screen and (min-width: 720px) {
+	.label {
+		cursor: default;
+		letter-spacing: 12px;
+		font-style: italic;
+		font-weight: 700;
+		font-family: Bokonique, serif;
+	}
+
+	@media only screen and (min-width: 768px) {
 		.wrapper {
 			font-size: 2rem;
 		}
