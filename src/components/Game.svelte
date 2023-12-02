@@ -1,13 +1,20 @@
-<script>
+<script lang="ts">
 	import Grid from './Grid.svelte';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { getLevels } from './levels.ts';
+	import type { Level, Points, Thumb } from '$lib/types';
+	import Found from './Found.svelte';
+
+	let audio_tada: HTMLAudioElement;
 
 	let data = writable([]);
-	let easyLevel = {};
-	let hardLevel = {};
-	let found = [];
+
+	let difficulty: 'easy' | 'hard' = 'easy';
+	let grid: Thumb[];
+	let points: Points;
+
+	let found: string[] = [];
 
 	onMount(async () => {
 		const response = await fetch('https://api.mamikonyan.io/kargin/data.json');
@@ -15,10 +22,15 @@
 	});
 
 	$: {
-		[easyLevel, hardLevel] = getLevels($data);
-		console.log('easyLevel =>', easyLevel);
-		console.log('hardLevel =>', hardLevel);
-		console.log('======================================');
+		const [easyLevel, hardLevel] = getLevels($data);
+
+		if (difficulty === 'easy') {
+			grid = easyLevel.thumbs;
+			points = easyLevel.points;
+		} else {
+			grid = hardLevel.thumbs;
+			points = hardLevel.points;
+		}
 	}
 </script>
 
@@ -26,10 +38,21 @@
 	<div class="info"></div>
 
 	<div class="grid-container">
-		<Grid />
+		<Grid
+			{grid}
+			{found}
+			on:found={(e) => {
+				audio_tada.play();
+				const { match } = e.detail.thumb;
+				found = [...found, match];
+			}}
+		/>
 	</div>
 
-	<div class="info"></div>
+	<div class="info">
+		<Found {found} {points} />
+	</div>
+	<audio src="https://api.mamikonyan.io/assets/tada.mp3" bind:this={audio_tada} />
 </div>
 
 <style>
