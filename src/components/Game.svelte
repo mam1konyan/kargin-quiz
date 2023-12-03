@@ -14,41 +14,79 @@
 	let difficulty: 'easy' | 'hard' = 'easy';
 	let level: Level;
 	let found: string[] = [];
+	let guessed: string = '';
+
+	let remaining: number;
+	let duration: number;
+
+	let isPlaying: boolean = false;
 
 	onMount(async () => {
 		const response = await fetch('https://api.mamikonyan.io/kargin/data.json');
 		$data = await response.json();
+
+		countdown();
 	});
 
 	$: {
 		const [easyLevel, hardLevel] = getLevels($data);
 
-		if (difficulty === 'easy') {
-			level = easyLevel;
-		} else {
-			level = hardLevel;
+		level = difficulty === 'easy' ? easyLevel : hardLevel;
+
+		remaining = level.duration;
+		duration = level.duration;
+	}
+
+	function countdown() {
+		const start = Date.now();
+		let remainingAtStart = remaining;
+
+		function loop() {
+			if (isPlaying) return;
+
+			requestAnimationFrame(loop);
+
+			remaining = remainingAtStart - (Date.now() - start);
+
+			if (remaining <= 0) {
+				// TODO Lost logic
+				isPlaying = false;
+			}
 		}
+
+		loop();
 	}
 </script>
 
 <div class="game">
 	<div class="info">
-		<Countdown remaining={level.duration} duration={level.duration} />
+		<Countdown {remaining} {duration} />
 	</div>
 
 	<div class="grid-container">
 		<Grid
 			grid={level.thumbs}
 			{found}
+			{guessed}
 			on:found={(e) => {
-				audio_tada.play();
 				const { match } = e.detail.thumb;
-				found = [...found, match];
+
+				audio_tada.play();
+
+				setTimeout(() => {
+					// This timeout for sync flip and correct guess timings
+					guessed = match;
+				}, 250);
+
+				setTimeout(() => {
+					guessed = '';
+					found = [...found, match];
+				}, 1000);
 			}}
 		/>
 	</div>
 
-	<div class="info">
+	<div class="score">
 		<Found {found} points={level.points} />
 	</div>
 	<audio src="https://api.mamikonyan.io/assets/tada.mp3" bind:this={audio_tada} />
@@ -72,6 +110,13 @@
 	}
 
 	.info {
+		height: 5vmin;
+		width: 60vmin;
+		margin-bottom: 5vmin;
+		display: flex;
+	}
+
+	.score {
 		height: 10vmin;
 		width: 60vmin;
 	}

@@ -18,12 +18,13 @@
 	.found {
 		display: flex;
 		height: 100%;
+		margin-top: 5vmin;
 	}
 
 	.count {
 		height: 100%;
 		width: 20%;
-		font-size: 4rem;
+		font-size: 2rem;
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
@@ -37,9 +38,23 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 2rem;
+		font-size: 1rem;
 		gap: 2px;
 		width: 80%;
 		height: 100%;
+	}
+
+	@media screen and (min-width: 1024px) {
+		.found {
+			margin-top: 2vmin;
+		}
+
+		.found-items {
+			font-size: 2rem;
+		}
+
+		.count {
+			font-size: 4rem;
+		}
 	}
 </style>

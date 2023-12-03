@@ -5,6 +5,7 @@
 
 	export let grid: Thumb[];
 	export let found: string[];
+	export let guessed: string;
 
 	const dispatch = createEventDispatcher();
 
@@ -17,6 +18,7 @@
 	{#each grid as thumb, i}
 		<Card
 			{thumb}
+			guessed={guessed === thumb.match}
 			on:click={() => {
 				// Resetting setTimeout() here
 				clearTimeout(timeoutId);
@@ -33,7 +35,7 @@
 						// Incorrect flipped case, reset after 1 second
 						timeoutId = setTimeout(() => {
 							a = b = -1;
-						}, 1000);
+						}, 1200);
 					}
 				} else {
 					b = -1;
@@ -41,7 +43,6 @@
 				}
 			}}
 			flipped={a === i || b === i}
-			disabled={a === i}
 			isFound={found.includes(thumb.match)}
 		/>
 	{/each}
@@ -54,5 +55,6 @@
 		grid-template-rows: repeat(4, 1fr);
 		gap: 1rem;
 		height: 100%;
+		perspective: 100vw;
 	}
 </style>

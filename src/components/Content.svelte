@@ -49,7 +49,7 @@
 	.wrapper {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
+		align-items: center;
 		padding: 2rem 10vmin;
 		gap: 10vmin;
 		flex-grow: 1;
@@ -60,6 +60,7 @@
 		line-height: 2.5em;
 		letter-spacing: 3px;
 		padding-top: 2rem;
+		max-width: 30rem;
 	}
 
 	a {
@@ -70,6 +71,7 @@
 	@media screen and (min-width: 1024px) {
 		.wrapper {
 			flex-direction: row;
+			justify-content: space-around;
 		}
 	}
 </style>
