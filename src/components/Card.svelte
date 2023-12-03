@@ -1,19 +1,21 @@
 <script lang="ts">
 	import type { Thumb } from '$lib/types';
+	import { send } from './transitions';
 
 	export let thumb: Thumb;
 	export let flipped: boolean;
 	export let isFound: boolean;
 	export let guessed: boolean;
+	export let group: 'a' | 'b';
 </script>
 
 <div class="card" class:flipped={guessed || flipped}>
 	{#if !isFound}
-		{#if guessed}
-			<div class="guessed">🎉</div>
-		{/if}
-		<button on:click />
+		<button on:click style="-webkit-tap-highlight-color: transparent;" />
 		<div class="item" style="--url: url({thumb.url})" />
+	{/if}
+	{#if guessed}
+		<div class="guessed" out:send={{ key: `${thumb.match}:${group}` }}>🎉</div>
 	{/if}
 </div>
 
@@ -44,20 +46,19 @@
 	.guessed {
 		position: absolute;
 		z-index: 1;
-		font-size: 3rem;
+		font-size: 2rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-		background-image: radial-gradient(
-			circle,
-			rgba(236, 240, 241, 0.6) 0%,
-			rgba(189, 195, 199, 0.6) 100%
-		);
-		border-radius: 50%;
+		/*border-radius: 50%;*/
 		user-select: none;
-		transform: rotateY(180deg);
+		/*transform: rotateY(180deg);*/
+	}
+
+	.transparent {
+		opacity: 50%;
 	}
 
 	.item {
@@ -70,5 +71,11 @@
 		cursor: pointer;
 		transform: rotateY(180deg);
 		backface-visibility: hidden;
+	}
+
+	@media screen and (min-width: 1024px) {
+		.guessed {
+			font-size: 3rem;
+		}
 	}
 </style>

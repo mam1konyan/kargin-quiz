@@ -12,6 +12,9 @@
 	let a: number = -1;
 	let b: number = -1;
 	let timeoutId: number;
+	let matchesArr: string[] = [];
+
+	$: matchesArr = grid.map((a) => a.match);
 </script>
 
 <div class="grid">
@@ -44,6 +47,7 @@
 			}}
 			flipped={a === i || b === i}
 			isFound={found.includes(thumb.match)}
+			group={matchesArr.indexOf(thumb.match) === i ? 'a' : 'b'}
 		/>
 	{/each}
 </div>

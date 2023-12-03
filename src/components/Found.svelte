@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Points } from '$lib/types';
+	import { receive } from './transitions';
 
 	export let found: string[];
 	export let points: Points;
@@ -9,7 +10,10 @@
 	<div class="count">{found.length * points.correct}</div>
 	<div class="found-items">
 		{#each found as trophy (trophy)}
-			<span>🎉</span>
+			<div class="pair">
+				<span in:receive={{ key: `${trophy}:a` }}>🎉</span>
+				<span in:receive={{ key: `${trophy}:b` }}>🎉</span>
+			</div>
 		{/each}
 	</div>
 </div>
@@ -18,7 +22,6 @@
 	.found {
 		display: flex;
 		height: 100%;
-		margin-top: 5vmin;
 	}
 
 	.count {
@@ -30,8 +33,16 @@
 		justify-content: flex-start;
 	}
 
+	.pair {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2rem;
+		height: 2rem;
+	}
+
 	span {
-		margin: 0.5rem;
+		position: absolute;
 	}
 
 	.found-items {
@@ -45,16 +56,17 @@
 	}
 
 	@media screen and (min-width: 1024px) {
-		.found {
-			margin-top: 2vmin;
-		}
-
 		.found-items {
 			font-size: 2rem;
 		}
 
 		.count {
 			font-size: 4rem;
+		}
+
+		.pair {
+			width: 3rem;
+			height: 3rem;
 		}
 	}
 </style>

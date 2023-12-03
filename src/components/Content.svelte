@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Game from './Game.svelte';
 	import Accordion from './Accordion.svelte';
 </script>
@@ -50,7 +50,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 2rem 10vmin;
+		padding: 1rem 10vmin;
 		gap: 10vmin;
 		flex-grow: 1;
 		flex-shrink: 0;

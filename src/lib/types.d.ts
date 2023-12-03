@@ -20,3 +20,5 @@ export interface Level {
 	thumbs: Thumb[];
 	points: Points;
 }
+
+export type GameState = 'waiting' | 'playing' | 'won' | 'lost';
