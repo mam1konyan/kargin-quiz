@@ -31,6 +31,8 @@
 		display: flex;
 		align-items: center;
 		flex-grow: 1;
+		border-radius: 2rem;
+		overflow: hidden;
 	}
 
 	.duration {
@@ -40,6 +42,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		border-radius: 2rem;
 	}
 
 	span {
