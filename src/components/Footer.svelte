@@ -52,7 +52,7 @@
 				</svg>
 			</a>
 			<a href="https://www.instagram.com/mam1konyan/" target="_blank">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="32px" height="32px">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="36px" height="36px">
 					<radialGradient
 						id="yOrnnhliCrdS2gy~4tD8ma"
 						cx="19.38"
