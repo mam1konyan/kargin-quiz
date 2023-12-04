@@ -72,7 +72,7 @@
 			{#if $gameState === 'waiting'}
 				<div style="text-align: center">
 					<div class="choose-desc">
-						<span>Շրջի՛ր 2 կերպարներին, որոնք նույն սկետչից են 👀</span>
+						<span>Շրջի՛ր էն 2 կերպարներին որոնք նույն սկետչից են 👀</span>
 					</div>
 					<div class="choose-header">
 						<span>Ընտրե՛ք բարդությունը</span>
