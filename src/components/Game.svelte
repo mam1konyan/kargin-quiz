@@ -8,37 +8,43 @@
 	import Countdown from './Countdown.svelte';
 	import Modal from './Modal.svelte';
 
-	let audio_tada: HTMLAudioElement;
+	let audioTada: HTMLAudioElement;
+	let wonAudio: HTMLAudioElement;
+	let lostAudio: HTMLAudioElement;
 
 	let data = writable([]);
+	let gameState: GameState = getContext('gameState');
 
-	let difficulty: 'easy' | 'hard' = 'easy';
-	let level: Level;
+	let difficulty: 'easy' | 'hard';
 	let found: string[] = [];
 	let guessed: string = '';
-
-	let remaining: number;
-	let duration: number;
-
+	let remaining: number = 0;
+	let duration: number = 0;
+	let grid: Thumb[] = Array(16);
+	let points: Points = {
+		correct: 0,
+		left: 0,
+		second: 0
+	};
 	let isPlaying: boolean = false;
 	let flippedButton: number = -1;
-
-	let gameState: GameState = getContext('gameState');
 
 	onMount(async () => {
 		const response = await fetch('https://api.mamikonyan.io/kargin/data.json');
 		$data = await response.json();
-
-		countdown();
 	});
 
-	$: {
+	function start(difficulty: 'easy' | 'hard') {
 		const [easyLevel, hardLevel] = getLevels($data);
-
-		level = difficulty === 'easy' ? easyLevel : hardLevel;
+		const level = difficulty === 'easy' ? easyLevel : hardLevel;
 
 		remaining = level.duration;
 		duration = level.duration;
+		grid = level.thumbs;
+		points = level.points;
+
+		isPlaying = true;
+		countdown();
 	}
 
 	function countdown() {
@@ -46,15 +52,16 @@
 		let remainingAtStart = remaining;
 
 		function loop() {
-			if (isPlaying) return;
+			if (!isPlaying) return;
 
 			requestAnimationFrame(loop);
 
 			remaining = remainingAtStart - (Date.now() - start);
 
 			if (remaining <= 0) {
-				// TODO Lost logic
-				isPlaying = false;
+				isPlaying = true;
+				lostAudio.play();
+				$gameState = 'lost';
 			}
 		}
 
@@ -68,7 +75,7 @@
 			{#if $gameState === 'waiting'}
 				<div style="text-align: center">
 					<div class="choose-header">
-						<span>Ընտրեք բարդթությունը</span>
+						<span>Ընտրեք բարդությունը</span>
 					</div>
 					<div class="options">
 						<button
@@ -81,6 +88,7 @@
 								} else {
 									flippedButton = 0;
 								}
+								difficulty = 'easy';
 							}}
 						>
 							ՀԵՇՏ
@@ -100,6 +108,7 @@
 								} else {
 									flippedButton = 1;
 								}
+								difficulty = 'hard';
 							}}
 						>
 							ԲԱՐԴ
@@ -117,12 +126,17 @@
 						class="start"
 						disabled={flippedButton === -1}
 						on:click={() => {
-							alert('aa');
+							$gameState = 'playing';
+							start(difficulty);
 						}}
 					>
 						ՍԿՍԵԼ
 					</button>
 				</div>
+			{:else if $gameState === 'won'}
+				<div>won</div>
+			{:else if $gameState === 'lost'}
+				<div>lost</div>
 			{/if}
 		</Modal>
 	{/if}
@@ -132,14 +146,12 @@
 
 	<div class="grid-container">
 		<Grid
-			grid={level.thumbs}
+			{grid}
 			{found}
 			{guessed}
 			on:found={(e) => {
 				const { match } = e.detail.thumb;
 				const isLastFound = found.length === 4 ** 2 / 2 - 1;
-
-				audio_tada.play();
 
 				setTimeout(() => {
 					// This timeout for sync flip and correct guess timings
@@ -147,11 +159,14 @@
 					guessed = match;
 
 					if (isLastFound) {
-						alert('Won');
+						$gameState = 'won';
+						isPlaying = false;
+						wonAudio.play();
 					}
 				}, 250);
 
 				if (!isLastFound) {
+					audioTada.play();
 					setTimeout(() => {
 						guessed = '';
 						found = [...found, match];
@@ -162,9 +177,11 @@
 	</div>
 
 	<div class="score">
-		<Found {found} points={level.points} />
+		<Found {found} {points} />
 	</div>
-	<audio src="https://api.mamikonyan.io/assets/tada.mp3" bind:this={audio_tada} />
+	<audio src="https://api.mamikonyan.io/assets/tada.mp3" bind:this={audioTada} />
+	<audio src="https://api.mamikonyan.io/assets/lost.mp3" bind:this={lostAudio} />
+	<audio src="https://api.mamikonyan.io/assets/won.mp3" bind:this={wonAudio} />
 </div>
 
 <style>
@@ -216,13 +233,15 @@
 	.option {
 		width: 6rem;
 		height: 6rem;
-		border: 0;
 		border-radius: 50%;
 		background: linear-gradient(to right, #544a7d, #ffd452);
+		-webkit-text-stroke: var(--logo-stroke);
 		color: #fff;
 		font-size: 1rem;
 		letter-spacing: 3px;
 		transition: transform 0.4s;
+
+		border: 2px solid #181a20;
 	}
 
 	.flipped {
@@ -234,14 +253,17 @@
 		padding: 1rem 3rem;
 		font-size: 1rem;
 		letter-spacing: 3px;
-		color: #fff;
+		color: rgba(255, 255, 255, 0.3);
 		font-weight: 700;
 		border-radius: 2rem;
 		border: none;
+		cursor: not-allowed;
 	}
 
 	.start:not([disabled]) {
 		background: linear-gradient(to right, #fc4a1a, #f7b733);
+		color: rgba(255, 255, 255, 1);
+		cursor: pointer;
 	}
 
 	.thumbnail {
@@ -256,6 +278,7 @@
 		transition: none;
 		background-size: cover;
 		background-color: var(--bg-color);
+		cursor: pointer;
 	}
 
 	.flipped-thumb {
@@ -274,10 +297,12 @@
 		}
 
 		.option {
-			width: 15rem;
-			height: 15rem;
+			width: 13rem;
+			height: 13rem;
 			font-size: 3rem;
+			cursor: pointer;
 			letter-spacing: 8px;
+			border-width: 4px;
 		}
 
 		.start {

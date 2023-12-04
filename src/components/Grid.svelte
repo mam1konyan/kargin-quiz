@@ -14,14 +14,14 @@
 	let timeoutId: number;
 	let matchesArr: string[] = [];
 
-	$: matchesArr = grid.map((a) => a.match);
+	$: matchesArr = grid.map((a) => a?.match || '');
 </script>
 
 <div class="grid">
 	{#each grid as thumb, i}
 		<Card
 			{thumb}
-			guessed={guessed === thumb.match}
+			guessed={thumb ? guessed === thumb.match : false}
 			on:click={() => {
 				// Resetting setTimeout() here
 				clearTimeout(timeoutId);
@@ -46,8 +46,8 @@
 				}
 			}}
 			flipped={a === i || b === i}
-			isFound={found.includes(thumb.match)}
-			group={matchesArr.indexOf(thumb.match) === i ? 'a' : 'b'}
+			isFound={thumb ? found.includes(thumb.match) : false}
+			group={matchesArr.indexOf(thumb?.match || '') === i ? 'a' : 'b'}
 		/>
 	{/each}
 </div>

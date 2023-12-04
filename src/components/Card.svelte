@@ -12,10 +12,10 @@
 <div class="card" class:flipped={guessed || flipped}>
 	{#if !isFound}
 		<button on:click style="-webkit-tap-highlight-color: transparent;" />
-		<div class="item" style="--url: url({thumb.url})" />
+		<div class="item" style="--url: url({thumb?.url || ''})" />
 	{/if}
 	{#if guessed}
-		<div class="guessed" out:send={{ key: `${thumb.match}:${group}` }}>🎉</div>
+		<div class="guessed" out:send={{ key: `${thumb?.match || ''}:${group}` }}>🎉</div>
 	{/if}
 </div>
 
