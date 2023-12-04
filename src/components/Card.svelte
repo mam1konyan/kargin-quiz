@@ -52,13 +52,7 @@
 		justify-content: center;
 		width: 100%;
 		height: 100%;
-		/*border-radius: 50%;*/
 		user-select: none;
-		/*transform: rotateY(180deg);*/
-	}
-
-	.transparent {
-		opacity: 50%;
 	}
 
 	.item {
