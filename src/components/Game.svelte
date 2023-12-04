@@ -281,6 +281,8 @@
 		font-size: 1rem;
 		letter-spacing: 3px;
 		transition: transform 0.4s;
+		font-weight: 700;
+		margin-right: -3px;
 
 		border: 2px solid #181a20;
 	}
