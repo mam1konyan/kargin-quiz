@@ -3,7 +3,7 @@
 	import type { Thumb } from '$lib/types';
 	import { createEventDispatcher } from 'svelte';
 
-	export let grid: Thumb[];
+	export let grid: Thumb[] = [];
 	export let found: string[];
 	export let guessed: string;
 
@@ -14,7 +14,12 @@
 	let timeoutId: number;
 	let matchesArr: string[] = [];
 
-	$: matchesArr = grid.map((a) => a?.match || '');
+	$: {
+		a = -1;
+		b = -1;
+
+		matchesArr = grid.map((a) => a?.match || '');
+	}
 </script>
 
 <div class="grid">

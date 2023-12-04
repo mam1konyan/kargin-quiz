@@ -1,6 +1,12 @@
 <script lang="ts">
 	import Game from './Game.svelte';
 	import Accordion from './Accordion.svelte';
+	import { getContext } from 'svelte';
+
+	const data = getContext('data');
+	let count = 0;
+
+	$: count = $data.flat().length * 2;
 </script>
 
 <div class="wrapper">
@@ -8,8 +14,8 @@
 		Բարև «Կարգինի» սիրահար, <a href="https://www.linkedin.com/in/mam1konyan/" target="_blank"
 			>ես Պարույրն եմ</a
 		>
-		😊 Եթե էս էջում ես հիմա՝ ուրեմն կա՜մ սիրում ես «Կարգին Հաղորդում», կա՜մ IT ոլորտից ես ու մտել ես
-		պռոյեկտը ուսումնասիրես, կա՜մ էլ էրկուսը միասին 😆 Շատ կարճ էս պռոյեկտի մասին 👇🏻
+		😊 Եթե էս էջում ես հիմա՝ ուրեմն կա՛մ սիրում ես «Կարգին Հաղորդում», կա՛մ IT ոլորտից ես ու մտել ես
+		պռոյեկտը ուսումնասիրես, կա՛մ էլ էրկուսը միասին 😆 Շատ կարճ էս պռոյեկտի մասին 👇🏻
 		<br />
 		<br />
 		<Accordion>
@@ -40,6 +46,8 @@
 				անվճար, մենակ պետք ա բացել ու խաղալ 😇
 			</div>
 		</Accordion>
+		<br />
+		Այս պահին խաղում կա <strong>{count}</strong> կերպար «Կարգինից» ու էդ թիվը պարբերաբար աճում ա 🚀
 	</div>
 
 	<Game />
@@ -61,17 +69,23 @@
 		letter-spacing: 3px;
 		padding-top: 2rem;
 		max-width: 30rem;
+		font-size: 0.8rem;
 	}
 
-	a {
+	a,
+	strong {
 		text-decoration: none;
 		color: var(--primary-color);
 	}
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1025px) {
 		.wrapper {
 			flex-direction: row;
 			justify-content: space-around;
+		}
+
+		.info {
+			font-size: 1rem;
 		}
 	}
 </style>

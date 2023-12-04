@@ -11,7 +11,7 @@
 
 <div class="card" class:flipped={guessed || flipped}>
 	{#if !isFound}
-		<button on:click style="-webkit-tap-highlight-color: transparent;" />
+		<button on:click />
 		<div class="item" style="--url: url({thumb?.url || ''})" />
 	{/if}
 	{#if guessed}
@@ -73,7 +73,7 @@
 		backface-visibility: hidden;
 	}
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1025px) {
 		.guessed {
 			font-size: 3rem;
 		}

@@ -8,11 +8,19 @@
 	import type { GameState } from '$lib/types';
 	import { writable } from 'svelte/store';
 	import type { Writable } from 'svelte/store';
-	import { setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
+	import type { Pairs } from '$lib/types';
 
 	let gameState: Writable<GameState> = writable('waiting');
+	let data: Writable<Pairs[]> = writable([]);
 
 	setContext('gameState', gameState);
+	setContext('data', data);
+
+	onMount(async () => {
+		const response = await fetch('https://api.mamikonyan.io/kargin/data.json');
+		$data = await response.json();
+	});
 </script>
 
 <div>

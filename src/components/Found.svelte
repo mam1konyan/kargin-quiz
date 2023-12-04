@@ -55,7 +55,7 @@
 		height: 100%;
 	}
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1025px) {
 		.found-items {
 			font-size: 2rem;
 		}

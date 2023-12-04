@@ -63,7 +63,7 @@
 		justify-content: center;
 	}
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 1025px) {
 		span {
 			font-size: 2rem;
 		}

@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Grid from './Grid.svelte';
 	import { getContext, onMount } from 'svelte';
-	import { writable } from 'svelte/store';
 	import { getLevels } from './levels.ts';
-	import type { GameState, Level, Points, Thumb } from '$lib/types';
+	import type { GameState, Level, Pairs, Points, Thumb } from '$lib/types';
 	import Found from './Found.svelte';
 	import Countdown from './Countdown.svelte';
 	import Modal from './Modal.svelte';
@@ -12,10 +11,9 @@
 	let wonAudio: HTMLAudioElement;
 	let lostAudio: HTMLAudioElement;
 
-	let data = writable([]);
 	let gameState: GameState = getContext('gameState');
+	let data: Pairs[] = getContext('data');
 
-	let difficulty: 'easy' | 'hard';
 	let found: string[] = [];
 	let guessed: string = '';
 	let remaining: number = 0;
@@ -29,22 +27,21 @@
 	let isPlaying: boolean = false;
 	let flippedButton: number = -1;
 
-	onMount(async () => {
-		const response = await fetch('https://api.mamikonyan.io/kargin/data.json');
-		$data = await response.json();
-	});
+	function start() {
+		isPlaying = true;
+		countdown();
+	}
 
-	function start(difficulty: 'easy' | 'hard') {
+	function createNewGrid(difficulty: 'easy' | 'hard') {
+		found = [];
+		guessed = '';
+
 		const [easyLevel, hardLevel] = getLevels($data);
 		const level = difficulty === 'easy' ? easyLevel : hardLevel;
 
-		remaining = level.duration;
-		duration = level.duration;
+		remaining = duration = level.duration;
 		grid = level.thumbs;
 		points = level.points;
-
-		isPlaying = true;
-		countdown();
 	}
 
 	function countdown() {
@@ -59,7 +56,7 @@
 			remaining = remainingAtStart - (Date.now() - start);
 
 			if (remaining <= 0) {
-				isPlaying = true;
+				isPlaying = false;
 				lostAudio.play();
 				$gameState = 'lost';
 			}
@@ -75,7 +72,7 @@
 			{#if $gameState === 'waiting'}
 				<div style="text-align: center">
 					<div class="choose-header">
-						<span>Ընտրեք բարդությունը</span>
+						<span>Ընտրե՛ք բարդությունը</span>
 					</div>
 					<div class="options">
 						<button
@@ -88,7 +85,8 @@
 								} else {
 									flippedButton = 0;
 								}
-								difficulty = 'easy';
+
+								createNewGrid('easy');
 							}}
 						>
 							ՀԵՇՏ
@@ -108,7 +106,8 @@
 								} else {
 									flippedButton = 1;
 								}
-								difficulty = 'hard';
+
+								createNewGrid('hard');
 							}}
 						>
 							ԲԱՐԴ
@@ -123,20 +122,63 @@
 						</button>
 					</div>
 					<button
-						class="start"
-						disabled={flippedButton === -1}
+						class="main-button"
+						disabled={flippedButton === -1 || !$data.length}
 						on:click={() => {
 							$gameState = 'playing';
-							start(difficulty);
+							start();
 						}}
+						title={flippedButton === -1 ? '	Սկսելու համար ընտրեք բարդությունը ☝🏻' : 'Սկսել խաղը 🎲'}
 					>
 						ՍԿՍԵԼ
 					</button>
 				</div>
 			{:else if $gameState === 'won'}
-				<div>won</div>
+				<div class="end">
+					<div class="celebrate end-thumb" />
+
+					<span class="end-text">
+						<h1>ՀԱՂԹԱՆԱ՜Կ 🥳</h1>
+						Դու հավաքեցիր ընդհանուր{' '}
+						<strong style="color: #27ae60">
+							{Math.round(8 * points.correct + (remaining / 1000) * points.second)}
+						</strong>
+						միավոր 🏆
+					</span>
+
+					<button
+						class="main-button"
+						on:click={() => {
+							$gameState = 'waiting';
+							flippedButton = -1;
+						}}
+					>
+						ՆՈՐԻՑ
+					</button>
+				</div>
 			{:else if $gameState === 'lost'}
-				<div>lost</div>
+				<div class="end">
+					<div class="lost end-thumb" />
+
+					<span class="end-text">
+						<h1>ՎԵՐՋ 😞</h1>
+						Դու հավաքեցիր ընդամենը{' '}
+						<strong style="color: #c23616">
+							{Math.round(found.length * points.correct + (8 - found.length) * points.left)}
+						</strong>
+						միավոր 🤕 «Կարգինները» վերանայելու ժամանակն ա 🫣
+					</span>
+
+					<button
+						class="main-button"
+						on:click={() => {
+							$gameState = 'waiting';
+							flippedButton = -1;
+						}}
+					>
+						ՆՈՐԻՑ
+					</button>
+				</div>
 			{/if}
 		</Modal>
 	{/if}
@@ -235,7 +277,6 @@
 		height: 6rem;
 		border-radius: 50%;
 		background: linear-gradient(to right, #544a7d, #ffd452);
-		-webkit-text-stroke: var(--logo-stroke);
 		color: #fff;
 		font-size: 1rem;
 		letter-spacing: 3px;
@@ -248,7 +289,7 @@
 		transform: rotateY(180deg);
 	}
 
-	.start {
+	.main-button {
 		margin: 2rem auto 0;
 		padding: 1rem 3rem;
 		font-size: 1rem;
@@ -260,7 +301,7 @@
 		cursor: not-allowed;
 	}
 
-	.start:not([disabled]) {
+	.main-button:not([disabled]) {
 		background: linear-gradient(to right, #fc4a1a, #f7b733);
 		color: rgba(255, 255, 255, 1);
 		cursor: pointer;
@@ -285,10 +326,41 @@
 		transform: rotateY(0deg);
 	}
 
-	@media screen and (min-width: 1024px) {
+	.end {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	.end-thumb {
+		background-size: cover;
+		border-radius: 50%;
+		width: 7rem;
+		height: 7rem;
+	}
+
+	.celebrate {
+		background-image: url('https://api.mamikonyan.io/assets/win.png');
+	}
+
+	.lost {
+		background-image: url('https://api.mamikonyan.io/assets/lost.png');
+	}
+
+	.end-text {
+		font-size: 0.8rem;
+		text-align: center;
+		line-height: 2em;
+		letter-spacing: 3px;
+	}
+
+	@media screen and (min-width: 1025px) {
 		.game {
 			align-self: flex-start;
-			padding: 0.5rem;
+			padding: 1rem;
 		}
 
 		.choose-header {
@@ -303,13 +375,23 @@
 			cursor: pointer;
 			letter-spacing: 8px;
 			border-width: 4px;
+			-webkit-text-stroke: 1px #181a20;
 		}
 
-		.start {
+		.main-button {
 			padding: 1rem 5rem;
 			letter-spacing: 8px;
 			font-size: 2rem;
 			margin-top: 4rem;
+		}
+
+		.end-thumb {
+			width: 17rem;
+			height: 17rem;
+		}
+
+		.end-text {
+			font-size: 2rem;
 		}
 	}
 </style>
