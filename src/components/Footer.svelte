@@ -130,6 +130,7 @@
 
 <style>
 	.footer {
+		flex-direction: column;
 		flex-grow: 0;
 		flex-shrink: 1;
 		padding: 5rem 2rem 2rem;
@@ -173,5 +174,11 @@
 		color: var(--primary-color);
 		text-decoration: none;
 		cursor: pointer;
+	}
+
+	@media screen and (min-width: 768px) {
+		.footer {
+			flex-direction: row;
+		}
 	}
 </style>
