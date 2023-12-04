@@ -71,6 +71,9 @@
 		<Modal>
 			{#if $gameState === 'waiting'}
 				<div style="text-align: center">
+					<div class="choose-desc">
+						<span>Շրջի՛ր 2 կերպարներին, որոնք նույն սկետչից են 👀</span>
+					</div>
 					<div class="choose-header">
 						<span>Ընտրե՛ք բարդությունը</span>
 					</div>
@@ -259,6 +262,13 @@
 		margin-top: 2vmin;
 	}
 
+	.choose-desc {
+		font-size: 1.5rem;
+		margin-bottom: 2rem;
+		text-align: center;
+		width: 90%;
+	}
+
 	.choose-header {
 		width: 100%;
 		text-align: center;
@@ -365,9 +375,14 @@
 			padding: 1rem;
 		}
 
+		.choose-desc {
+			margin-bottom: 3rem;
+			font-size: 2rem;
+		}
+
 		.choose-header {
 			margin-bottom: 3rem;
-			font-size: 3rem;
+			font-size: 2rem;
 		}
 
 		.option {

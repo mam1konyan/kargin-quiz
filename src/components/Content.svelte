@@ -61,6 +61,7 @@
 		gap: 10vmin;
 		flex-grow: 1;
 		flex-shrink: 0;
+		align-items: center;
 	}
 
 	.info {
@@ -80,6 +81,7 @@
 		.wrapper {
 			flex-direction: row;
 			justify-content: space-around;
+			align-items: flex-start;
 		}
 
 		.info {
