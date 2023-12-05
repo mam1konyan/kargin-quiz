@@ -1,38 +1,25 @@
-# create-svelte
+# Kargin Haghordum Pair Matching Game
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+![Game Screenshot](https://api.mamikonyan.io/assets/kargin_quiz_screen.png)
 
-## Creating a project
+A simple pair matching game built with Svelte, inspired by the characters from the famous Armenian comedy show "Kargin Haghordum" from the 2000s.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Table of Contents
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- [Purpose](#purpose)
+- [Demo](#demo)
+- [Features](#features)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Purpose
 
-## Developing
+The main goal of this project is to gain hands-on experience with Svelte, a new web framework. By creating a simple and entertaining pair matching game based on "Kargin Haghordum," the project aims to provide a practical learning opportunity for web development enthusiasts.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Demo
 
-```bash
-npm run dev
+[LIVE DEMO](https://kargin.mamikonyan.io/)
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Features
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- **Card Matching:** Flip two cards at a time to find matching pairs.
+- **Kargin Haghordum Theme:** Enjoy the game with characters from the popular Armenian comedy show.
+- **Svelte Framework:** Learn and explore the Svelte web framework while building a fun project.
