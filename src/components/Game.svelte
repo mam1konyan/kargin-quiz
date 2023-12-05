@@ -96,7 +96,7 @@
 							<span
 								class="thumbnail"
 								class:flipped-thumb={flippedButton === 0}
-								style="background-image: url('https://api.mamikonyan.io/assets/easy.png');"
+								style="background-image: url('https://api.mamikonyan.io/kargin/easy.png');"
 							/>
 						</button>
 						<button
@@ -118,7 +118,7 @@
 								class="thumbnail"
 								class:flipped-thumb={flippedButton === 1}
 								style="
-									background-image: url('https://api.mamikonyan.io/assets/hard.png');
+									background-image: url('https://api.mamikonyan.io/kargin/hard.png');
 									background-position-x: 19px
 								"
 							/>
@@ -224,9 +224,9 @@
 	<div class="score">
 		<Found {found} {points} />
 	</div>
-	<audio src="https://api.mamikonyan.io/assets/tada.mp3" bind:this={audioTada} />
-	<audio src="https://api.mamikonyan.io/assets/lost.mp3" bind:this={lostAudio} />
-	<audio src="https://api.mamikonyan.io/assets/won.mp3" bind:this={wonAudio} />
+	<audio src="https://api.mamikonyan.io/kargin/tada.mp3" bind:this={audioTada} />
+	<audio src="https://api.mamikonyan.io/kargin/lost.mp3" bind:this={lostAudio} />
+	<audio src="https://api.mamikonyan.io/kargin/won.mp3" bind:this={wonAudio} />
 </div>
 
 <style>
@@ -355,11 +355,11 @@
 	}
 
 	.celebrate {
-		background-image: url('https://api.mamikonyan.io/assets/win.png');
+		background-image: url('https://api.mamikonyan.io/kargin/win.png');
 	}
 
 	.lost {
-		background-image: url('https://api.mamikonyan.io/assets/lost.png');
+		background-image: url('https://api.mamikonyan.io/kargin/lost.png');
 	}
 
 	.end-text {
