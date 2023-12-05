@@ -1,4 +1,4 @@
-# Kargin Haghordum Pair Matching Game
+# KARGIN-QUIZ
 
 ![Game Screenshot](https://api.mamikonyan.io/assets/kargin_quiz_screen.png)
 
@@ -23,3 +23,4 @@ The main goal of this project is to gain hands-on experience with Svelte, a new 
 - **Card Matching:** Flip two cards at a time to find matching pairs.
 - **Kargin Haghordum Theme:** Enjoy the game with characters from the popular Armenian comedy show.
 - **Svelte Framework:** Learn and explore the Svelte web framework while building a fun project.
+- **Dark/Light themes with CSS vars:** Dark/Light themes implementation using CSS variables.
