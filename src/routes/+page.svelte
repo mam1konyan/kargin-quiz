@@ -20,6 +20,12 @@
 	onMount(async () => {
 		const response = await fetch('https://api.mamikonyan.io/kargin/data.json');
 		$data = await response.json();
+
+		console.log('Hey fellow coder 👋🏻. ');
+		console.log(
+			"If you here to get some chunk of code just go and check project's source code on Github 👇🏻"
+		);
+		console.log('https://github.com/mam1konyan/kargin-quiz');
 	});
 </script>
 
